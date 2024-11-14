@@ -1,11 +1,43 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react"
+import Link from "next/link"
+import { useFormik } from "formik"
+import * as Yup from "yup"
+import { Eye, EyeOff } from 'lucide-react'
+import axios from 'axios'
+
+const validationSchema = Yup.object({
+  name: Yup.string()
+    .min(2, "Name must be at least 2 characters")
+    .required("Full name is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(8, "Password must be at least 8 characters")
+    .required("Password is required"),
+})
 
 export default function Register() {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false)
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.post("http://localhost:8000/register", values)
+        console.log("Registration successful:", response.data)
+      } catch (error) {
+        console.log("Registration failed:", error.response?.data || error.message)
+      }
+    },
+  })
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white p-4">
@@ -24,7 +56,7 @@ export default function Register() {
           <p className="text-gray-500 text-lg">Share the buzz around you in an exciting and fun manner</p>
         </div>
         <div className="space-y-6 bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
-          <div className="space-y-4">
+          <form onSubmit={formik.handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                 Full Name
@@ -32,9 +64,13 @@ export default function Register() {
               <input
                 id="name"
                 type="text"
-                placeholder="Enter your full name"
+                {...formik.getFieldProps('name')}
                 className="w-full h-12 px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                placeholder="Enter your full name"
               />
+              {formik.touched.name && formik.errors.name && (
+                <div className="text-red-500 text-sm">{formik.errors.name}</div>
+              )}
             </div>
             <div className="space-y-2">
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -43,9 +79,13 @@ export default function Register() {
               <input
                 id="email"
                 type="email"
-                placeholder="janedoe@gmail.com"
+                {...formik.getFieldProps('email')}
                 className="w-full h-12 px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                placeholder="janedoe@gmail.com"
               />
+              {formik.touched.email && formik.errors.email && (
+                <div className="text-red-500 text-sm">{formik.errors.email}</div>
+              )}
             </div>
             <div className="space-y-2">
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
@@ -55,6 +95,7 @@ export default function Register() {
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
+                  {...formik.getFieldProps('password')}
                   className="w-full h-12 px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent pr-10"
                 />
                 <button
@@ -69,14 +110,17 @@ export default function Register() {
                   )}
                 </button>
               </div>
+              {formik.touched.password && formik.errors.password && (
+                <div className="text-red-500 text-sm">{formik.errors.password}</div>
+              )}
             </div>
-          </div>
-          <button
-            type="submit"
-            className="w-full h-12 text-base bg-yellow-400 hover:bg-yellow-500 text-black rounded-md transition-colors duration-200"
-          >
-            Sign Up
-          </button>
+            <button
+              type="submit"
+              className="w-full h-12 text-base bg-yellow-400 hover:bg-yellow-500 text-black rounded-md transition-colors duration-200"
+            >
+              Sign Up
+            </button>
+          </form>
           <div className="text-center space-y-4">
             <Link 
               href="/forgot-password" 
@@ -97,5 +141,5 @@ export default function Register() {
         </div>
       </div>
     </div>
-  );
+  )
 }
