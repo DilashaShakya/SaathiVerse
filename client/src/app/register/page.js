@@ -1,10 +1,11 @@
-"use client"
+'use client'
 
 import { useState } from "react"
 import Link from "next/link"
 import { useFormik } from "formik"
 import * as Yup from "yup"
 import { Eye, EyeOff } from 'lucide-react'
+import Image from "next/image"
 import axios from 'axios'
 
 const validationSchema = Yup.object({
@@ -44,12 +45,15 @@ export default function Register() {
       <div className="w-full max-w-3xl space-y-8">
         <div className="space-y-2 text-center">
           <div className="flex justify-center">
-            <div className="relative w-20 h-20">
-              <div className="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center">
-                <div className="w-16 h-16 bg-yellow-300 rounded-full flex items-center justify-center">
-                  <div className="w-3 h-3 bg-black rounded-full absolute top-2 right-4" />
-                </div>
-              </div>
+            <div className="relative w-30 h-30">
+              <Image
+                src="/logobuzzie.png"
+                alt="Buzzie Logo"
+                width={150}
+                height={150}
+                priority
+                className="w-30 h-30"
+              />
             </div>
           </div>
           <h1 className="text-4xl font-bold tracking-tight">Welcome to Buzzie!</h1>
