@@ -61,8 +61,8 @@ export default function Login() {
             className="mx-auto"
           />
           <div className="space-y-2">
-            <h1 className="text-2xl font-semibold tracking-tight">Welcome to Buzzie!</h1>
-            <p className="text-sm text-gray-500">Share the buzz around you in an exciting and fun manner</p>
+            <h1 className="text-2xl font-semibold tracking-tight font-[Poppins]">Welcome to SaathiVerse!</h1>
+            <p className="text-sm text-gray-500 font-[Poppins]">Share the connection and fun around you together.</p>
           </div>
         </div>
         <form onSubmit={formik.handleSubmit} className="space-y-4">
@@ -109,7 +109,7 @@ export default function Login() {
           </div>
           <Button 
             type="submit" 
-            className="h-12 w-full bg-[#FFD700] font-medium text-black hover:bg-[#FFD700]/90"
+            className="h-12 w-full bg-[#FFD700] font-medium text-black hover:bg-[#FFD700]/90 font-[Poppins]"
             disabled={formik.isSubmitting}
           >
             {formik.isSubmitting ? 'Logging in...' : 'LOGIN'}
@@ -121,7 +121,7 @@ export default function Login() {
             Forgot password?
           </Link>
         </form>
-        <div className="text-center text-sm">
+        <div className="text-center text-sm font-[Poppins]">
           {"Don't have an account? "}
           <Link href="/register" className="text-[#FFD700] hover:underline">
             Register!

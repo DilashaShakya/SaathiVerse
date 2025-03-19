@@ -1,6 +1,6 @@
-# Buzzie
+# Saathiverse
 
-Buzzie is a cutting-edge social media platform designed to connect people through short-form content and real-time interactions. Share your thoughts, moments, and creativity with the world in an engaging and intuitive environment.
+SaathiVerse is a cutting-edge social media platform designed to connect people through short-form content and real-time interactions. Share your thoughts, moments, and creativity with the world in an engaging and intuitive environment.
 
 ## Features
 
@@ -28,7 +28,7 @@ Buzzie is a cutting-edge social media platform designed to connect people throug
 
 ## Getting Started
 
-To get started with Buzzie, follow these steps:
+To get started with SaathiVerse, follow these steps:
 
 1. Clone the repository
 2. Install dependencies for both client and server:
@@ -72,12 +72,12 @@ Both the client and server can be started using the `npm run dev` command in the
 
 ## Contributing
 
-We welcome contributions to Buzzie! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+We welcome contributions to SathiVerse! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
 ## License
 
-Buzzie is licensed under the [MIT License](LICENSE.md).
+SaathiVerse is licensed under the [MIT License](LICENSE.md).
 
 ## Contact
 
-For any queries or support, please contact our team at support@buzzie.com
+For any queries or support, please contact our team at support@saathiverse.com
