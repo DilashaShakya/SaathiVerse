@@ -11,19 +11,21 @@
   "description": "",
   "dependencies": {
     "axios": "^1.7.7",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.1"
   },
-
-  "lint-staged":{
-    "*{js,jx,ts,tsx,json}":[
+  "lint-staged": {
+    "*{js,jx,ts,tsx,json}": [
       "npm run format",
       "npm run lint",
       "npm test"
     ]
+  },
+  "devDependencies": {
+    "bcrypt": "^5.1.1"
   }
 }

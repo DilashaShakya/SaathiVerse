@@ -1,82 +1,18 @@
 const express = require('express')
 const app = express()
-const port = 8000
-const cors = require('cors');
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-require('dotenv').config()
+const port = 9000
+const UserRoute = require('./routes/user')
+const dbConnect = require('./db/connection')
+const cors = require('cors')
+
+app.use(cors())
+app.use(express.json())
 
 
-const dbConnect = async () => {
-  try {
-    await mongoose.connect('mongodb://127.0.0.1:27017/buzzieDb');
-    console.log("Connected to MongoDB");
-  } catch (err) {
-    console.error("MongoDB connection error:", err);
-  }
-};
-
-dbConnect();
-
-const { Schema } = mongoose;
-
-const userSchema = new Schema({
-  email: {type: String, unique: true},
-  password: String,
-  fullName: String,
-});
-
-const User = mongoose.model('User', userSchema);
-
-app.use(express.json());
-app.use(cors());
-
-app.post('/register',async (req, res) => {
-  //1. email exists or not?
-        const emailExist = await User.exists({email: req.body.email})
-        if(emailExist) return res.status(409).send({msg: "Email already exist!"})
-        // yes exists: 
-            //-------> return msg email taken
-        // no exists:
-            //2. password hash
-            req.body.password = await bcrypt.hash(req.body.password, saltRounds);
-            //3. save to db
-            User.create(req.body)
-            res.send({msg: req.body.role + " created successfully"})
-
-})
-
-app.post('/login',async (req, res) => {
-  const {email,password} = req.body
-  //STEP 1: check if email exists
-  const user = await User.findOne({email})
-
-  if(!user) return res.status(401).send({msg: "Invalid Email!!"})
-
-  //STEP 2: Compare the password
-  const isPasswordMatched = await bcrypt.compare(password, user.password)
-
-  if(!isPasswordMatched) return res.status(401).send({msg: "Invalid Password!!"})
-
-  //STEP 3: Generate unique token for the user to mark that he is logged in
-  const token = jwt.sign({ email }, process.env.SECRET_KEY);
-
-  res.send({
-    token,
-    user,
-    isLoggedIn: true,
-    msg: 'Authorized!!'
-  })
-     
-})
-
+dbConnect()
+app.use('/user',UserRoute)
 
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-
-
-
