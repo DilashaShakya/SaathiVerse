@@ -73,7 +73,7 @@ export default function RegisterForm() {
     }
     
     try {
-      const res = await axios.post("http://localhost:9000/user/register", values);
+      const res = await axios.post("http://localhost:5000/user/register", values);
       if (res.status === 200 || res.status === 201) {
         toast.success(res.data.msg);
         router.push("/login");

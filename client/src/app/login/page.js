@@ -10,6 +10,7 @@ import Image from "next/image"
 import Link from "next/link"
 import axios from "axios"
 import { useRouter } from "next/navigation"
+import { toast } from 'sonner'
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -28,24 +29,21 @@ export default function Login() {
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
       try {
-        const { data } = await axios.post('http://localhost:8000/login', values);
-  
-        console.log('Backend Response:', data); // Debugging response
-  
-        const { isLoggedIn, token } = data;
-  
-        if (isLoggedIn) {
-          router.push('/dashboard');
-        } else {
-          console.error('Login failed: Invalid login status.');
-        }
-      } catch (error) {
-        console.error('Error during login:', error?.response?.data?.msg || error.message);
-      }
+        const { data } = await axios.post('http://localhost:5000/user/login', values, {
+            headers: { 'Content-Type': 'application/json' },
+        });
+        console.log("✅ Backend Response:", data);
+        toast.success(data.msg);
+        localStorage.setItem('token', data.token);
+        router.push('/dashboard');
+    } catch (error) {
+        console.error("❌ Login Error:", error.response?.data || error.message);
+        toast.error(error.response?.data?.msg || "Something went wrong. Try again.");
+    }
+    
     },
   });
   
-
     
   
   
