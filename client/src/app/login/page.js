@@ -29,13 +29,17 @@ export default function Login() {
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
       try {
-        const { data } = await axios.post('http://localhost:5000/user/login', values, {
+        const { data } = await axios.post('http://localhost:3000/login', values, {
             headers: { 'Content-Type': 'application/json' },
         });
         console.log("✅ Backend Response:", data);
-        toast.success(data.msg);
+        toast.success(data?.msg || "Login successful!");
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 1000);
+
         localStorage.setItem('token', data.token);
-        router.push('/dashboard');
+  
     } catch (error) {
         console.error("❌ Login Error:", error.response?.data || error.message);
         toast.error(error.response?.data?.msg || "Something went wrong. Try again.");

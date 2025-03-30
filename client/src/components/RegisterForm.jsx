@@ -66,22 +66,29 @@ export default function RegisterForm() {
   
 
   const handleRegister = async (values) => {
-    // Additional front-end check for empty userName
     if (!values.userName) {
       toast.error("Username cannot be empty");
       return;
     }
-    
+  
     try {
-      const res = await axios.post("http://localhost:5000/user/register", values);
+      const res = await axios.post("http://localhost:3000/register", values);
+      
+      console.log("✅ Register Response:", res.data);
+  
       if (res.status === 200 || res.status === 201) {
-        toast.success(res.data.msg);
-        router.push("/login");
+        toast.success(res.data?.msg || "Registration successful!");
+        
+        setTimeout(() => {
+          router.push("/login");
+        }, 1000);
       }
     } catch (error) {
+      console.error("❌ Registration Error:", error.response?.data || error.message);
       toast.error(error.response?.data?.msg || "Registration failed");
     }
   };
+  
   
   
 

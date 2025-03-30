@@ -1,4 +1,5 @@
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "sonner";
+
 import "./globals.css";
 
 import { Poppins } from "next/font/google";
