@@ -23,7 +23,7 @@ const LoginModal =()=>{
 
   return(
     <div className="min-h-screen flex items-center justify-center bg-pink-100">
-      <Card className= "w-full max-w-5xl flex flex-row items-center justify-between overflow-hidden rounded-3xl shadow-lg bg-white">
+      <Card className= "w-full max-w-5xl flex flex-row items-center justify-between overflow-hidden rounded-3xl shadow-xl bg-white">
         <div className="w-1/2 flex items-center justify-center h-full"> 
           <div className="absolute top-8 left-8">
           <h2 className="font-bold text-2xl">
@@ -66,14 +66,14 @@ const LoginModal =()=>{
                     <label htmlFor="email" className="block text-gray-700">
                       Email
                     </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                    <div className="flex items-center border-2 border-orange-300 focus-within:border-orange-500 rounded-lg w-full px-4 py-2 gap-2 transition-all justify-between">
+                      {/* <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none"> */}
                         <Mail className="h-5 w-5 text-gray-400" />
-                      </div>
+                      {/* </div> */}
                       <Field
                         type="email"
                         name="email"
-                        className="pl-10 border-2 border-orange-300 rounded-lg py-2 w-full"
+                        className="w-full outline-none bg-transparent"
                         placeholder="Enter your email"
                       />
                       <ErrorMessage
@@ -88,29 +88,29 @@ const LoginModal =()=>{
                     <label htmlFor="password" className="block text-gray-700">
                       Password
                     </label>
-                    <div className="relative">
-                      <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                    <div className="flex items-center border-2 border-pink-300 gap-2 focus-within:border-pink-500 rounded-lg w-full px-4 py-2 transition-all">
+        
                         {showPassword ? (
                           <Eye className="h-5 w-5 text-gray-400" />
                         ) : (
                           <EyeOff className="h-5 w-5 text-gray-400" />
                         )}
-                      </div>
+                     
                       <Field
                         type={showPassword ? "text" : "password"}
                         name="password"
                         value={values.password}
                         onChange={handleChange}
-                        className="pl-10 border-2 border-pink-300 rounded-lg py-2 w-full"
+                        className="w-full outline-none bg-transparent"
                         placeholder="Enter your password"
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute inset-y-0 right-3 flex items-center"
+                        className="ml-auto"
                       >
                         {showPassword ? (
-                          <EyeOff className="h-5 w-5 text-gray-400" />
+                          <EyeOff className="h-5 w-5 text-gray-400 " />
                         ) : (
                           <Eye className="h-5 w-5 text-gray-400" />
                         )}
@@ -119,20 +119,25 @@ const LoginModal =()=>{
                       <ErrorMessage
                         name="password"
                         component="div"
-                        className="text-red-500 text-sm mt-1"
+                        className="text-red-500 text-sm mt-1 min-h-[20px]"
                       />
                     </div>
-                    <div className="flex justify-end">
+                    <div className="flex justify-between items-center">
                       <Link href="#" className="text-amber-500 hover:text-amber-600 text-sm">
                         Forgot Password?
                       </Link>
+                      <Link href= "/register" className="text-pink-400 hover:text-amber-600 text-sm">
+                      Register</Link>
                     </div>
+                    
                   </div>
+
+                  
 
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-pink-400 hover:bg-pink-500 text-white text-lg py-6 rounded-lg"
+                    className="w-full bg-pink-400 hover:bg-yellow-500 text-white text-lg py-6 rounded-lg"
                   >
                     {isSubmitting ? "Logging in..." : "Log In"}
                   </Button>
