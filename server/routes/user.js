@@ -1,8 +1,8 @@
 const {Router} = require("express")
-const {getUser, registerNewUser} = require("../controllers/user")
+const {LoginUser, registerNewUser} = require("../controllers/user")
 const app = Router()
 
-app.get('/user', getUser)
+app.post('/login', LoginUser)
 app.post('/register', registerNewUser)
 
 

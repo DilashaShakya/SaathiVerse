@@ -1,8 +1,15 @@
 const User = require('../models/user')
 const bcrypt = require('bcrypt'); 
-const getUser = async(req, res) => {
-    const data = await User.find()
-    res.json(data)
+const jwt = require('jsonwebtoken');
+
+const LoginUser = async(req, res) => {
+    const user = await User.findOne({email: req.body.email})
+    if (!user) return res.status(404).json({msg:"user not found"})
+
+        const isMatched = await bcrypt.compare(req.body.password, user.password)
+        if (!isMatched) return res.status(401).json({msg:" Password does not match"})
+            const token = jwt.sign({id : user._id},process.env.SECRET_KEY)
+        return res.json({token, user, isLoggedIn: true})
   }
 
 
@@ -47,4 +54,4 @@ const getUser = async(req, res) => {
 };
 
 
-module.exports = {registerNewUser , getUser};
+module.exports = {registerNewUser , LoginUser};
