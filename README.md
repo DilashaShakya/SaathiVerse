@@ -70,14 +70,4 @@ Both the client and server can be started using the `npm run dev` command in the
 - Jest: JavaScript testing framework
 - Supertest: HTTP assertions for testing Node.js HTTP servers
 
-## Contributing
 
-We welcome contributions to SathiVerse! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
-
-## License
-
-SaathiVerse is licensed under the [MIT License](LICENSE.md).
-
-## Contact
-
-For any queries or support, please contact our team at support@saathiverse.com
