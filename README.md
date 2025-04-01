@@ -7,17 +7,17 @@ SaathiVerse is a cutting-edge social media platform designed to connect people t
 ### Phase 1: Core Functionality
 
 - [x] User registration and authentication
-   - [ ] Register
-      - [ ] Password encryption
-      - [ ] Register API
-      - [ ] Register Form
-    - [ ] Login
-        - [ ] Profile creation and customization
-        - [ ] Email Based multi-user Login
-        - [ ] Password verification
-        - [ ] Login API
-        - [ ] Login Form
-        - [ ] Generate Token
+   - [x] Register
+      - [x] Password encryption
+      - [x] Register API
+      - [x] Register Form
+    - [x] Login
+        - [] Profile creation and customization
+        - [x] Email Based multi-user Login
+        - [x] Password verification
+        - [x] Login API
+        - [x] Login Form
+        - [x] Generate Token
 
 - [ ] Admin view
     - [ ] Profile page
@@ -70,14 +70,4 @@ Both the client and server can be started using the `npm run dev` command in the
 - Jest: JavaScript testing framework
 - Supertest: HTTP assertions for testing Node.js HTTP servers
 
-## Contributing
 
-We welcome contributions to SathiVerse! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
-
-## License
-
-SaathiVerse is licensed under the [MIT License](LICENSE.md).
-
-## Contact
-
-For any queries or support, please contact our team at support@saathiverse.com
