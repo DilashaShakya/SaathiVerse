@@ -2,6 +2,8 @@ import { Toaster } from "sonner";
 import "./globals.css";
 import { Poppins, Montserrat } from "next/font/google";
 
+
+const defaultOpen = true;
 // Define Poppins
 const poppins = Poppins({
   subsets: ["latin"],
@@ -19,7 +21,17 @@ const montserrat = Montserrat({
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.variable} ${montserrat.variable}`}>
-      <body className="font-sans">{children} <Toaster/></body>
+      
+      <body className="font-sans">
+      
+        {children}
+       <Toaster/></body>
     </html>
   );
 }
+
+
+
+
+
+
