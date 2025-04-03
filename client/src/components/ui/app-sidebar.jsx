@@ -34,7 +34,7 @@ export function AppSidebar() {
   ]
 
   return (
-    <div className="ml-2 mt-6 rounded-2xl p-[2px] bg-gradient-to-br from-yellow-100 to-pink-100 shadow-sm">
+    <div className="ml-2  mt-6 rounded-2xl p-[2px] bg-gradient-to-br from-yellow-100 to-pink-100 shadow-sm">
       <Sidebar className="bg-white rounded-2xl w-[70px] p-3 flex flex-col items-center">
         <SidebarContent>
           <SidebarGroup>
