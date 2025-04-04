@@ -13,9 +13,9 @@ const poppins = Poppins({
 
 export default function Layout({ children }) {
   return (
-    <div className={`flex min-h-screen bg-pink-50 ${poppins.variable}`}>
+    <div className={`flex h-screen overflow-hidden bg-pink-50 ${poppins.variable}`}>
       <AppSidebar />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 overflow-y-auto">{children}</main>
     </div>
   )
 }
