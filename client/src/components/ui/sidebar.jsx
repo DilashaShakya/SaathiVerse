@@ -55,7 +55,7 @@ export const SidebarMenuButton = React.forwardRef(({ className, children, ...pro
     <button
       ref={ref}
       className={cn(
-        "w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-200",
+        "w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-200 ",
         className
       )}
       {...props}

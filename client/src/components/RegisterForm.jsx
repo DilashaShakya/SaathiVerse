@@ -13,9 +13,9 @@ import { cn } from "@/lib/utils"
 
 // Validation schema using Yup
 const SignUpSchema = Yup.object().shape({
-  name: Yup.string().min(2, "Name is too short").required("Name is required"),
+  fullName: Yup.string().min(2, "Name is too short").required("Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
-  username: Yup.string().min(3, "Username is too short").required("Username is required"),
+  userName: Yup.string().min(3, "Username is too short").required("Username is required"),
   password: Yup.string().min(4, "Password must be at least 4 characters").required("Password is required"),
 })
 
@@ -24,13 +24,13 @@ const Register = () => {
   const router = useRouter()
 
   const handleRegister = async (values, setSubmitting) => {
-    if (!values.username) {
-      toast.error("Username cannot be empty")
+    if (!values.userName) {
+      toast.error("UserName cannot be empty")
       return
     }
 
     try {
-      const res = await axios.post("http://localhost:3000/register", values)
+      const res = await axios.post("http://localhost:9000/register", values)
 
       console.log("✅ Register Response:", res.data)
 
@@ -74,9 +74,9 @@ const Register = () => {
 
         <Formik
           initialValues={{
-            name: "",
+            fullName: "",
             email: "",
-            username: "",
+            userName: "",
             password: "",
           }}
           validationSchema={SignUpSchema}
@@ -91,13 +91,13 @@ const Register = () => {
                 <div
                   className={cn(
                     "flex items-center border-2 rounded-lg px-3 py-3 mb-4 ",
-                    errors.name && touched.name ? "border-red-500" : "border-[#FFB347]",
+                    errors.fullName && touched.fullName ? "border-red-500" : "border-[#FFB347]",
                   )}
                 >
                   <User className="h-5 w-5 text-gray-400 mr-2" />
-                  <Field type="text" name="name" placeholder="Name" className="flex-1 outline-none text-gray-700" />
+                  <Field type="text" name="fullName" placeholder="Name" className="flex-1 outline-none text-gray-700" />
                 </div>
-                <ErrorMessage name="name" component="p" className="text-red-500 text-sm mt-1 mb-2" />
+                <ErrorMessage name="fullName" component="p" className="text-red-500 text-sm mt-1 mb-2" />
               </div>
 
               <div>
@@ -119,13 +119,13 @@ const Register = () => {
                 <div
                   className={cn(
                     "flex items-center border-2 rounded-lg px-3 py-3 mb-4",
-                    errors.username && touched.username ? "border-red-500" : "border-[#FFB347]",
+                    errors.userName && touched.userName ? "border-red-500" : "border-[#FFB347]",
                   )}
                 >
                   <UserCircle className="h-5 w-5 text-gray-400 mr-2" />
                   <Field
                     type="text"
-                    name="username"
+                    name="userName"
                     placeholder="Username"
                     className="flex-1 outline-none text-gray-700"
                   />

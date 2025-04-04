@@ -1,6 +1,7 @@
 import { Toaster } from "sonner";
 import "./globals.css";
 import { Poppins, Montserrat } from "next/font/google";
+import ReduxProvider from "@/lib/redux/reduxProvider";
 
 
 const defaultOpen = true;
@@ -23,8 +24,10 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${poppins.variable} ${montserrat.variable}`}>
       
       <body className="font-sans">
-      
+        <ReduxProvider>
         {children}
+        </ReduxProvider>
+        
        <Toaster/></body>
     </html>
   );

@@ -9,17 +9,20 @@ import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "sonner";
+import { addUserDetails } from "@/lib/redux/slice/userSlice";
+import { useDispatch } from "react-redux";
 const { default: Image } = require("next/image");
 const { useState } = require("react")
 
 const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
-    password: Yup.string().min(8, 'Password must be at least 8 characters').required('Required'),
+    password: Yup.string().min(4, 'Password must be at least 4 characters').required('Required'),
 })
 
 const LoginModal = () => {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter()
+  const dispatch = useDispatch();
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-pink-100 px-4 relative">
@@ -40,13 +43,14 @@ const LoginModal = () => {
             validationSchema={LoginSchema}
             onSubmit={async (values, { setSubmitting }) => {
               try {
-                const { data } = await axios.post("http://localhost:3000/login", values, {
+                const { data } = await axios.post("http://localhost:9000/login", values, {
                   headers: { "Content-Type": "application/json" },
                 });
                 toast.success(data?.msg || "Login successful!");
-                setTimeout(() => {
-                  router.push("/dashboard");
-                }, 1000);
+                
+                router.push("/users/dashboard");
+                dispatch(addUserDetails(data?.user))
+                
                 localStorage.setItem("token", data.token);
               } catch (error) {
                 toast.error(error.response?.data?.msg || "Something went wrong. Try again.");

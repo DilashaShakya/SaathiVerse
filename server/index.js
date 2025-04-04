@@ -19,8 +19,8 @@ dbConnect()
 console.log("🚀 LoginRoute:", LoginRoute);
 console.log("🚀 PostsRoute:", PostsRoute);
 
-app.use('/posts',PostsRoute)
-app.use('/user',LoginRoute)
+app.use('/',PostsRoute)
+app.use('/',LoginRoute)
 
 
 app.listen(port, () => {

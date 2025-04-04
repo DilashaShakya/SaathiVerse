@@ -3,15 +3,19 @@
 import { Card } from "@/components/ui/card"
 import Image from "next/image"
 import { Camera, Smile, Music, Bold, Italic, Underline } from "lucide-react"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useEditor, EditorContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 import UnderlineExtension from "@tiptap/extension-underline"
 import Placeholder from "@tiptap/extension-placeholder"
 import axios from "axios"
+import { useSelector } from "react-redux"
 
 const Dashboard = () => {
   const [isEditorActive, setIsEditorActive] = useState(false)
+  const {userDetails} = useSelector(state=>state.user)
+  const [post, setPosts] = useState([])
+  const [showReactionsFor, setShowReactionsFor] = useState(null)
 
   const editor = useEditor({
     extensions: [
@@ -25,15 +29,25 @@ const Dashboard = () => {
     autofocus: false,
   })
 
+  const fetchPosts= async ()=>{
+    const {data}= await axios.get(`http://localhost:9000/posts`)
+    setPosts(data)
+  }
+
+  useEffect(()=>{
+    fetchPosts()
+  },[])
+
   const handleSubmit = useCallback(async () => {
     const html = editor?.getHTML()
     if (!html || html === "<p></p>") return
 
-    await axios.post("http://localhost:9000/posts/addNewPost", {
+    await axios.post("http://localhost:9000/posts", {
       content: html,
       postType: "text",
-      createdBy: "userObjectIdHere", 
+      createdBy: userDetails?._id, 
     })
+    await fetchPosts();
 
     editor?.commands.clearContent()
     setIsEditorActive(false)
@@ -52,9 +66,9 @@ const Dashboard = () => {
       {/* Top card */}
       <Card className="flex items-center bg-white rounded-2xl shadow-sm p-6 border border-gray-200 gap-6">
         <div>
-          <h1 className="text-4xl font-semibold text-gray-900">Welcome to your dashboard!</h1>
+          <h1 className="text-4xl font-semibold text-gray-900">Welcome to your Homepage!</h1>
           <p className="text-sm text-gray-500 mt-2">
-            Hello,
+            Hello, {userDetails?.fullName}
             <br />
             Namaste!
           </p>
@@ -68,7 +82,7 @@ const Dashboard = () => {
           <div className="size-10 rounded-full bg-black flex items-center justify-center text-white text-sm font-bold">
             😊
           </div>
-          <h3 className="text-lg font-semibold text-gray-800">Dilasha</h3>
+          <h3 className="text-lg font-semibold text-gray-800">{userDetails?.fullName}</h3>
         </div>
 
         {/* Toolbar - only show when editor is active */}
@@ -125,6 +139,67 @@ const Dashboard = () => {
           </button>
         </div>
       </Card>
+      {/* Penguin reactions */}
+
+
+{post.map((item) => (
+  <div
+    key={item._id}
+    className="bg-white rounded-2xl shadow-sm border border-[#f6e9e0] p-4 mt-4 font-[poppins]"
+  >
+    {/* Top: User Info */}
+    <div className="flex items-center gap-3 mb-4">
+      <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white text-sm font-bold">
+        😊
+      </div>
+      <div>
+        <p className="text-sm font-semibold text-gray-800">{userDetails.fullName}</p>
+        <p className="text-xs text-gray-400">{new Date(item.createdAt).toLocaleString()}</p>
+      </div>
+    </div>
+
+    {/* Post Content */}
+    <div
+      className="prose prose-sm max-w-none text-gray-800 mb-4 break-words"
+      dangerouslySetInnerHTML={{ __html: item.content }}
+    />
+
+    {/* Bottom buttons */}
+    <div className="flex gap-4 text-gray-500 text-sm items-center">
+      <button className="hover:text-pink-500">❤️ Like</button>
+      <button className="hover:text-yellow-500">💬 Comment</button>
+      <button
+        className="hover:text-blue-500"
+        onClick={() => setShowReactionsFor((prev) => (prev === item._id ? null : item._id))}
+      >
+        🐧 React
+      </button>
+    </div>
+
+    {/* Penguin Reactions */}
+    {showReactionsFor === item._id && (
+      <div className="flex gap-3 mt-2">
+      <button className="hover:scale-110 transition-transform">
+        <Image src="/love.png" alt="love" width={80} height={100} />
+      </button>
+      <button className="hover:scale-110 transition-transform">
+        <Image src="/cool.png" alt="cool" width={80} height={100}  />
+      </button>
+      <button className="hover:scale-110 transition-transform">
+        <Image src="/no.png" alt="no" width={80} height={100}  />
+      </button>
+      <button className="hover:scale-110 transition-transform">
+        <Image src="/sad.png" alt="sad" width={80} height={100}  />
+      </button>
+      <button className="hover:scale-110 transition-transform">
+        <Image src="/celebrate.png" alt="celebrate" width={80} height={100}  />
+      </button>
+    </div>
+    )}
+  </div>
+))}
+
+
     </div>
   )
 }

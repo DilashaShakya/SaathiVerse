@@ -4,7 +4,7 @@ const {getAllPosts, addNewPost} = require("../controllers/posts")
 const router = Router()
 
 
-router.get('/', getAllPosts)
-router.post('/addNewPost', addNewPost)
+router.get('/posts', getAllPosts)
+router.post('/posts', addNewPost)
 
 module.exports = router;
