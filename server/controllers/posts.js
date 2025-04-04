@@ -1,8 +1,4 @@
 const Post = require("../models/posts");
-const mongoose = require("mongoose");
-
-console.log("🚀 Debug: Post Model Import ->", Post); // Add this line
-
 
 const addNewPost = async (req, res) => {
   try {

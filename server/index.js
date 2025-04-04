@@ -3,7 +3,6 @@ const app = express()
 const port = 9000
 const LoginRoute = require('./routes/user')
 const PostsRoute = require("./routes/posts");
-console.log("🚀 PostsRoute:", PostsRoute);
 
 const dbConnect = require('./db/connection')
 
@@ -16,8 +15,7 @@ app.use(express.json());
 
 
 dbConnect()
-console.log("🚀 LoginRoute:", LoginRoute);
-console.log("🚀 PostsRoute:", PostsRoute);
+
 
 app.use('/',PostsRoute)
 app.use('/',LoginRoute)

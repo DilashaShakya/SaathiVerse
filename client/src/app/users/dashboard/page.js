@@ -2,7 +2,7 @@
 
 import { Card } from "@/components/ui/card"
 import Image from "next/image"
-import { Camera, Smile, Music, Bold, Italic, Underline } from "lucide-react"
+import { Camera, Smile, Music, Bold, Italic, Underline, CheckCircleIcon, CheckCircle2Icon } from "lucide-react"
 import { useCallback, useEffect, useState } from "react"
 import { useEditor, EditorContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
@@ -10,13 +10,16 @@ import UnderlineExtension from "@tiptap/extension-underline"
 import Placeholder from "@tiptap/extension-placeholder"
 import axios from "axios"
 import { useSelector } from "react-redux"
+import DragDropUpload from "@/components/drag-drop-upload"
 
 const Dashboard = () => {
   const [isEditorActive, setIsEditorActive] = useState(false)
   const {userDetails} = useSelector(state=>state.user)
+  const {uploadedFiles} = useSelector(state=>state.post)
+  const [files, setFiles] = useState([])
   const [post, setPosts] = useState([])
   const [showReactionsFor, setShowReactionsFor] = useState(null)
-
+  const [uploadModelOpen,setUploadModelOpen] = useState(false)
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -41,12 +44,13 @@ const Dashboard = () => {
   const handleSubmit = useCallback(async () => {
     const html = editor?.getHTML()
     if (!html || html === "<p></p>") return
-
-    await axios.post("http://localhost:9000/posts", {
-      content: html,
-      postType: "text",
-      createdBy: userDetails?._id, 
-    })
+    
+    const formData = new FormData()
+    debugger;
+    formData.append('image',files)
+    formData.append('content', html)
+    formData.append('createdBy', userDetails._id)
+    await axios.post("http://localhost:9000/posts", formData)
     await fetchPosts();
 
     editor?.commands.clearContent()
@@ -75,7 +79,7 @@ const Dashboard = () => {
         </div>
         <Image src="/dashboardpenguin.png" width={60} height={60} alt="Dashboard Penguin" />
       </Card>
-
+{JSON.stringify(files)}
       {/* Post input card */}
       <Card className="bg-white rounded-2xl p-4 shadow-sm mt-6 border border-[#f6e9e0]">
         <div className="flex items-center gap-3 mb-4">
@@ -122,11 +126,11 @@ const Dashboard = () => {
             </div>
           )}
         </div>
-
+     {uploadModelOpen &&   <DragDropUpload setFiles={setFiles} files={files}/>}
         {/* Buttons */}
         <div className="mt-4 flex gap-3">
-          <button className="flex items-center gap-1 rounded-xl px-3 py-2 border border-[#f6e9e0] bg-white text-sm text-gray-700">
-            <Camera size={16} className="text-pink-500" /> Photo
+          <button onClick={()=>setUploadModelOpen(true)}  className="flex items-center gap-1 rounded-xl px-3 py-2 border border-[#f6e9e0] bg-white text-sm text-gray-700">
+            <Camera  size={16} className="text-pink-500" /> Photo
           </button>
           <button className="flex items-center gap-1 rounded-xl px-3 py-2 border border-[#f6e9e0] bg-white text-sm text-gray-700">
             <Smile size={16} className="text-yellow-500" /> Feeling

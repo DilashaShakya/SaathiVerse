@@ -7,7 +7,7 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-
+    image: String,
     postType: {
       type: String,
       enum: ['text', 'image', 'video', 'audio', 'link'],
