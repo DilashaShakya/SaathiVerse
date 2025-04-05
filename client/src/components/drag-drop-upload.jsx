@@ -16,6 +16,9 @@ const dispatch = useDispatch()
     onDrop: (acceptedFiles) => {
       const newPreviews = acceptedFiles.map((file) => URL.createObjectURL(file))
       dispatch(addPreviews(newPreviews))
+      console.log("acceptedFiles[0] in DragDropUpload:", acceptedFiles[0]);
+      console.log("Type of acceptedFiles[0]:", typeof acceptedFiles[0]);
+      console.log("Value being passed to setFiles:", acceptedFiles[0]);
       debugger;
       props.setFiles(acceptedFiles[0])
     },

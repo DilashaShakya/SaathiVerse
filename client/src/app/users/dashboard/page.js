@@ -33,30 +33,41 @@ const Dashboard = () => {
   })
 
   const fetchPosts= async ()=>{
-    const {data}= await axios.get(`http://localhost:9000/posts`)
-    setPosts(data)
-  }
+    try {
+        console.log("--- fetchPosts function called ---"); // Log when fetchPosts starts
+        const { data } = await axios.get(`http://localhost:9000/posts`);
+        console.log("✅ fetchPosts Axios GET request successful"); // Log on successful GET
+        console.log("Data received from backend:", data); // Log the entire 'data' received
+        setPosts(data);
+        console.log("Posts state updated with fetched data:", data); // Log after setPosts
+    } catch (error) {
+        console.error("❌ Error fetching posts:", error); // Log any errors
+    }
+}
 
   useEffect(()=>{
     fetchPosts()
   },[])
+  useEffect(() => {
+    console.log("Dashboard files state updated:", files); // ADDED
+  }, [files]);
 
   const handleSubmit = useCallback(async () => {
-    const html = editor?.getHTML()
-    if (!html || html === "<p></p>") return
-    
-    const formData = new FormData()
-    debugger;
-    formData.append('image',files)
-    formData.append('content', html)
-    formData.append('createdBy', userDetails._id)
-    await axios.post("http://localhost:9000/posts", formData)
-    await fetchPosts();
-
-    editor?.commands.clearContent()
-    setIsEditorActive(false)
-  }, [editor])
-
+    const html = editor?.getHTML();
+    if (!html || html === "<p></p>") return;
+  
+    const formData = new FormData();
+    formData.append('image', files);
+    formData.append('content', html);
+    formData.append('createdBy', userDetails?._id);
+  
+    debugger; // Keep debugger for inspection
+    await axios.post("http://localhost:9000/posts", formData);
+    // (Remove fetchPosts(), clearContent(), setIsEditorActive() for now)
+    fetchPosts(); // Fetch posts again to update the list
+   
+  }, [editor, files, userDetails]);
+  
   const activateEditor = useCallback(() => {
     setIsEditorActive(true)
     // Focus the editor after a short delay to ensure the DOM has updated
@@ -64,7 +75,6 @@ const Dashboard = () => {
       editor?.commands.focus()
     }, 10)
   }, [editor])
-
   return (
     <div className="p-6 font-[poppins]">
       {/* Top card */}
@@ -79,7 +89,7 @@ const Dashboard = () => {
         </div>
         <Image src="/dashboardpenguin.png" width={60} height={60} alt="Dashboard Penguin" />
       </Card>
-{JSON.stringify(files)}
+{JSON.stringify(post)}
       {/* Post input card */}
       <Card className="bg-white rounded-2xl p-4 shadow-sm mt-6 border border-[#f6e9e0]">
         <div className="flex items-center gap-3 mb-4">
@@ -167,6 +177,15 @@ const Dashboard = () => {
       className="prose prose-sm max-w-none text-gray-800 mb-4 break-words"
       dangerouslySetInnerHTML={{ __html: item.content }}
     />
+    {item.image && ( // Conditionally render image if post.image exists
+  <Image
+  src={`http://localhost:9000/${item.image.replace(/\\/g, '/')}`}
+  alt="Post Image"
+  width={300}
+  height={200}
+  className="rounded-lg mt-2 object-cover"
+/>
+)}
 
     {/* Bottom buttons */}
     <div className="flex gap-4 text-gray-500 text-sm items-center">
