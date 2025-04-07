@@ -33,7 +33,7 @@ const Dashboard = () => {
   })
 
   const fetchPosts= async ()=>{
-    const {data}= await axios.get(`http://localhost:9000/posts`)
+    const {data}= await axios.get(`http://localhost:8000/posts`)
     setPosts(data)
   }
 
@@ -50,7 +50,7 @@ const Dashboard = () => {
     formData.append('image',files)
     formData.append('content', html)
     formData.append('createdBy', userDetails._id)
-    await axios.post("http://localhost:9000/posts", formData)
+    await axios.post("http://localhost:8000/posts", formData)
     await fetchPosts();
 
     editor?.commands.clearContent()

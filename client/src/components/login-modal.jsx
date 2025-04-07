@@ -43,7 +43,7 @@ const LoginModal = () => {
             validationSchema={LoginSchema}
             onSubmit={async (values, { setSubmitting }) => {
               try {
-                const { data } = await axios.post("http://localhost:9000/login", values, {
+                const { data } = await axios.post("http://localhost:8000/login", values, {
                   headers: { "Content-Type": "application/json" },
                 });
                 toast.success(data?.msg || "Login successful!");

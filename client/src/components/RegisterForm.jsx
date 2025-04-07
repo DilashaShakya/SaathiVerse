@@ -30,7 +30,7 @@ const Register = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:9000/register", values)
+      const res = await axios.post("http://localhost:8000/register", values)
 
       console.log("✅ Register Response:", res.data)
 

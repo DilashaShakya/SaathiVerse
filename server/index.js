@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 9000
+const port = 8000
 const LoginRoute = require('./routes/user')
 const PostsRoute = require("./routes/posts");
 
