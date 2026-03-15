@@ -1,6 +1,6 @@
 # 🐧 SaathiVerse
 
-SaathiVerse is a cozy social media platform where you can share your thoughts, photos, and feelings with friends — and react with penguins. Built with Next.js, Node.js, Express, and MongoDB.
+SaathiVerse is a cozy social media platform where you can share your thoughts, photos, and feelings with friends — and react with penguins. Built with Next.js, Node.js, Express, and MongoDB. Saathi stands for friends. Penguins are actually a great symbol of friendship, which makes them a very fitting mascot for SaathiVerse (since saathi means friend). 🐧
 
 ---
 
@@ -8,13 +8,15 @@ SaathiVerse is a cozy social media platform where you can share your thoughts, p
 
 ### Login Page
 <!-- Add screenshot here -->
-![Login Page](./screenshots/login.png)
+![Login Page](image.png)
+![Register Page] image.png
 
 ---
 
 ### Dashboard / Home Feed
 <!-- Add screenshot here -->
-![Dashboard](./screenshots/dashboard.png)
+![Dashboard] image.png
+image.png
 
 ---
 
@@ -26,7 +28,7 @@ SaathiVerse is a cozy social media platform where you can share your thoughts, p
 
 ### Penguin Reactions
 <!-- Add screenshot here -->
-![Reactions](./screenshots/reactions.png)
+![Reactions] image.png
 
 ---
 
