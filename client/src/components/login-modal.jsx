@@ -47,11 +47,10 @@ const LoginModal = () => {
                   headers: { "Content-Type": "application/json" },
                 });
                 toast.success(data?.msg || "Login successful!");
-                
-                router.push("/users/dashboard");
                 dispatch(addUserDetails(data?.user))
-                
                 localStorage.setItem("token", data.token);
+                localStorage.setItem("user", JSON.stringify(data?.user));
+                router.push("/users/dashboard");
               } catch (error) {
                 toast.error(error.response?.data?.msg || "Something went wrong. Try again.");
               }

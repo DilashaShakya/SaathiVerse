@@ -1,73 +1,197 @@
-# Saathiverse
+# 🐧 SaathiVerse
 
-SaathiVerse is a cutting-edge social media platform designed to connect people through short-form content and real-time interactions. Share your thoughts, moments, and creativity with the world in an engaging and intuitive environment.
+SaathiVerse is a cozy social media platform where you can share your thoughts, photos, and feelings with friends — and react with penguins. Built with Next.js, Node.js, Express, and MongoDB.
+
+---
+
+## Screenshots
+
+### Login Page
+<!-- Add screenshot here -->
+![Login Page](./screenshots/login.png)
+
+---
+
+### Dashboard / Home Feed
+<!-- Add screenshot here -->
+![Dashboard](./screenshots/dashboard.png)
+
+---
+
+### Creating a Post (with Photo + Feeling)
+<!-- Add screenshot here -->
+![Post Creation](./screenshots/post-creation.png)
+
+---
+
+### Penguin Reactions
+<!-- Add screenshot here -->
+![Reactions](./screenshots/reactions.png)
+
+---
+
+### Calendar Page
+<!-- Add screenshot here -->
+![Calendar](./screenshots/calendar.png)
+
+---
 
 ## Features
 
-### Phase 1: Core Functionality
+### Authentication
+- [x] User registration with password encryption (bcrypt)
+- [x] Email-based login
+- [x] JWT token generation
+- [x] Persistent login across page refreshes (localStorage + Redux)
 
-- [x] User registration and authentication
-   - [x] Register
-      - [x] Password encryption
-      - [x] Register API
-      - [x] Register Form
-    - [x] Login
-        - [] Profile creation and customization
-        - [x] Email Based multi-user Login
-        - [x] Password verification
-        - [x] Login API
-        - [x] Login Form
-        - [x] Generate Token
+### Posts & Feed
+- [x] Rich text post creation (bold, italic, underline via TipTap editor)
+- [x] Photo upload with drag-and-drop
+- [x] Post with a feeling/mood (12 moods with emojis)
+- [x] Post without text (image-only or feeling-only)
+- [x] Feed shows posts from all users, newest first
+- [x] Each post shows the correct author name
+- [x] Delete your own posts
 
-- [ ] Admin view
-    - [ ] Profile page
-    - [ ] Post creation (text, up to 280 characters)
-    - [ ] News feed displaying posts from followed users
-    - [] Like and comment on posts
-    - [] Follow/unfollow other users
+### Reactions & Engagement
+- [x] Like / unlike posts (with live count)
+- [x] Penguin reactions — Love, Cool, No, Sad, Celebrate
+- [x] Reaction summary shows which penguins were used and how many
+- [x] Comments on posts (with live count)
+- [x] Press Enter to submit a comment
+
+### Calendar
+- [x] Click a date to auto-fill the event form
+- [x] Add multiple events per day
+- [x] Delete individual events
+- [x] Events sorted chronologically
+- [x] Dot indicator on calendar dates that have events
+
+---
 
 ## Getting Started
 
-To get started with SaathiVerse, follow these steps:
+### Prerequisites
+- Node.js v18+
+- MongoDB (local or Atlas)
 
-1. Clone the repository
-2. Install dependencies for both client and server:
-   ```
-    cd client 
-    npm install
-    npm run dev
+### Installation
 
-    cd server
-    npm install
-    npm run dev
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/SaathiVerse.git
+   cd SaathiVerse
    ```
 
-Both the client and server can be started using the `npm run dev` command in their respective directories.
+2. Set up the server:
+   ```bash
+   cd server
+   npm install
+   ```
 
-## Technologies and Packages Used
+3. Create a `.env` file in the `server/` folder:
+   ```
+   MONGO_URI=your_mongodb_connection_string
+   SECRET_KEY=your_jwt_secret
+   ```
 
-### Client-side (Next.js)
-- Next.js: React framework for building web applications
-- React: JavaScript library for building user interfaces
-- @nextui-org/react: UI component library for React
-- Radix UI: Unstyled, accessible components for React
-- Formik: Form library for React
-- Yup: JavaScript schema validation library
-- Recharts: Composable charting library for React
-- Framer Motion: Animation library for React
-- Tailwind CSS: Utility-first CSS framework
+4. Set up the client:
+   ```bash
+   cd ../client
+   npm install
+   ```
 
-### Server-side (Node.js)
-- Express.js: Web application framework for Node.js
-- MongoDB: NoSQL database for storing user data and posts
-- Mongoose: MongoDB object modeling for Node.js
-- Socket.io: Real-time bidirectional event-based communication
-- JSON Web Token (JWT): Secure transmission of information between parties as a JSON object
+### Running the App
 
-### Development Tools
-- ESLint: JavaScript linting tool
-- Prettier: Code formatter
-- Jest: JavaScript testing framework
-- Supertest: HTTP assertions for testing Node.js HTTP servers
+Open two terminals:
 
+**Terminal 1 — Server:**
+```bash
+cd server
+npm run dev
+```
+Server runs at `http://localhost:8000`
 
+**Terminal 2 — Client:**
+```bash
+cd client
+npm run dev
+```
+Client runs at `http://localhost:3000`
+
+---
+
+## Tech Stack
+
+### Frontend
+| Package | Purpose |
+|---|---|
+| Next.js 15 | React framework with App Router |
+| Tailwind CSS | Utility-first styling |
+| Redux Toolkit | Global state management |
+| TipTap | Rich text editor |
+| React Dropzone | Drag-and-drop file uploads |
+| Axios | HTTP requests |
+| Formik + Yup | Form handling and validation |
+| Sonner | Toast notifications |
+| shadcn/ui | UI component library |
+| date-fns | Date formatting |
+| Lucide React | Icons |
+
+### Backend
+| Package | Purpose |
+|---|---|
+| Express.js | Web server framework |
+| MongoDB + Mongoose | Database and ODM |
+| Multer | File/image upload handling |
+| bcrypt | Password hashing |
+| JSON Web Token | Auth tokens |
+| dotenv | Environment variables |
+| cors | Cross-origin requests |
+| nodemon | Auto-restart in development |
+
+---
+
+## Project Structure
+
+```
+SaathiVerse/
+├── client/                  # Next.js frontend
+│   └── src/
+│       ├── app/
+│       │   ├── login/       # Login page
+│       │   ├── register/    # Register page
+│       │   └── users/
+│       │       ├── dashboard/   # Home feed
+│       │       ├── calendar/    # Calendar page
+│       │       └── details/     # User details
+│       ├── components/      # Shared UI components
+│       └── lib/
+│           └── redux/       # Store, slices
+│
+└── server/                  # Express backend
+    ├── controllers/         # Route handlers
+    ├── models/              # Mongoose schemas
+    ├── routes/              # API routes
+    ├── db/                  # DB connection
+    └── uploads/             # Uploaded images
+```
+
+---
+
+## API Endpoints
+
+| Method | Route | Description |
+|---|---|---|
+| POST | `/register` | Register a new user |
+| POST | `/login` | Login and receive JWT |
+| GET | `/posts` | Get all posts (newest first, with author) |
+| POST | `/posts` | Create a new post (supports image upload) |
+| DELETE | `/posts/:id/:userId` | Delete own post |
+| PATCH | `/posts/:id/like` | Toggle like on a post |
+| PATCH | `/posts/:id/react` | Add/change/remove penguin reaction |
+| POST | `/posts/:id/comment` | Add a comment to a post |
+
+---
+
+Made with 🐧 and lots of pink.

@@ -15,12 +15,13 @@ export const postSlice = createSlice({
         previews: [...state.previews, action.payload]
       }
     },
-
-  
+    clearPreviews: (state) => {
+      return { ...state, previews: [] }
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addPreviews } = postSlice.actions
+export const { addPreviews, clearPreviews } = postSlice.actions
 
 export default postSlice.reducer
