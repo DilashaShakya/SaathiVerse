@@ -34,7 +34,6 @@ SaathiVerse is a cozy social media platform where you can share your thoughts, p
 ---
 
 ### Calendar Page
-<!-- Add screenshot here -->
 ![Calendar](./client/public/readmeimages/calendar.png)
 
 ---
