@@ -7,34 +7,35 @@ SaathiVerse is a cozy social media platform where you can share your thoughts, p
 ## Screenshots
 
 ### Login Page
-<!-- Add screenshot here -->
-![Login Page](image.png)
-![Register Page] image.png
 
+![Login Page](./client/public/readmeimages/Login.png)
+
+### Register Page
+
+![Register Page](./client/public/readmeimages/Register.png)
 ---
 
 ### Dashboard / Home Feed
-<!-- Add screenshot here -->
-![Dashboard] image.png
-image.png
+
+![Dashboard](./client/public/readmeimages/dashboard.png)
 
 ---
 
 ### Creating a Post (with Photo + Feeling)
-<!-- Add screenshot here -->
-![Post Creation](./screenshots/post-creation.png)
+
+![Post Creation](./client/public/readmeimages/imageposting.png)
 
 ---
-
 ### Penguin Reactions
-<!-- Add screenshot here -->
-![Reactions] image.png
+
+![Reactions](./client/public/readmeimages/reactions.png)
+
 
 ---
 
 ### Calendar Page
 <!-- Add screenshot here -->
-![Calendar](./screenshots/calendar.png)
+![Calendar](./client/public/readmeimages/calendar.png)
 
 ---
 
